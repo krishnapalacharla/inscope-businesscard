@@ -3566,13 +3566,11 @@ body{font-family:'Work Sans','Helvetica Neue',Arial,sans-serif;background:#eceae
  </main>
 </div>
 <script>
-var FITS=[['t_name',6.1,40],['t_title',2.05,36],['t_phone',2.15,29.5],['t_email',2.15,29.5],['t_addr1',1.72,40.5],['t_addr2',1.72,40.5]];
-function fitOne(id,base,maxw){var e=document.getElementById(id);if(!e)return;e.setAttribute('font-size',base);
- try{var bb=e.getBBox();if(bb&&bb.width>maxw){var s=base*maxw/bb.width;if(s<base*0.5)s=base*0.5;e.setAttribute('font-size',s.toFixed(3));}}catch(x){}}
+var FITS=[['t_name',6.1,12],['t_title',2.05,22],['t_phone',2.15,24],['t_email',2.15,24],['t_addr1',1.72,46],['t_addr2',1.72,46]];
+function fitOne(id,base,maxchars){var e=document.getElementById(id);if(!e)return;var n=((e.textContent||'').trim()).length;var s=base;if(n>maxchars){s=base*maxchars/n;if(s<base*0.55)s=base*0.55;}e.setAttribute('font-size',s.toFixed(3));}
 function fitAll(){FITS.forEach(function(f){fitOne(f[0],f[1],f[2]);});}
 function setT(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
-[['f_name','t_name'],['f_title','t_title'],['f_phone','t_phone'],['f_email','t_email'],['f_addr1','t_addr1'],['f_addr2','t_addr2']].forEach(function(p){var f=document.getElementById(p[0]);f.addEventListener('input',function(){setT(p[1],f.value);fitAll();});});
-if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitAll);} setTimeout(fitAll,300);
+var MAP=[['f_name','t_name'],['f_title','t_title'],['f_phone','t_phone'],['f_email','t_email'],['f_addr1','t_addr1'],['f_addr2','t_addr2']];MAP.forEach(function(p){var f=document.getElementById(p[0]);f.addEventListener('input',function(){setT(p[1],f.value);fitAll();});});function syncAll(){MAP.forEach(function(p){var f=document.getElementById(p[0]);if(f)setT(p[1],f.value);});fitAll();}syncAll();setTimeout(syncAll,250);window.addEventListener('load',syncAll);
 function setView(b){document.querySelector('.preview').classList.toggle('bleedview',b);document.getElementById('bt').classList.toggle('on',!b);document.getElementById('bb').classList.toggle('on',b);}
 function printCard(bleed){
  document.body.classList.toggle('bleed',bleed);
