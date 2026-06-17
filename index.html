@@ -30,6 +30,12 @@ body{font-family:'Work Sans','Helvetica Neue',Arial,sans-serif;background:#eceae
 .bleedview .view .card{margin:0}
 .crop,.trimguide{display:none}
 .bleedview .crop{display:block}.bleedview .trimguide{display:block}
+@media (max-width:760px){
+ .app{flex-direction:column;padding:14px;gap:16px}
+ .ui{position:static;top:auto;width:100%}
+ .preview{width:100%}
+ .cards{justify-content:center}
+}
 @media print{
  html,body{background:#fff}
  .ui,.tag,.tgbar{display:none!important}
