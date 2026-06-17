@@ -61,8 +61,8 @@ body{font-family:'Work Sans','Helvetica Neue',Arial,sans-serif;background:#eceae
    <div class="field"><label>Address line 1</label><input id="f_addr1" value="Office #817, 8th Floor, Sandhya Techno I Building,"></div>
    <div class="field"><label>Address line 2</label><input id="f_addr2" value="Raidurg, Khajaguda, Hyderabad – 500081."></div>
    <div class="btns">
-     <button onclick="printCard(false)">Save as PDF — no bleed (front + back)</button>
-     <button onclick="printCard(true)">Save as PDF — with bleed + crop marks</button>
+     <button onclick="printCard(false)">Save as PDF — no bleed · 55 × 85 mm</button>
+     <button onclick="printCard(true)">Save as PDF — with bleed · 61 × 91 mm</button>
    </div>
    <div class="hint">Edit the fields on the left to update the card. Then download — use <b>with bleed</b> when sending to a printer, or <b>no bleed</b> for everyday use.</div>
  </aside>
@@ -3570,7 +3570,7 @@ var FITS=[['t_name',6.1,12],['t_title',2.05,22],['t_phone',2.15,24],['t_email',2
 function fitOne(id,base,maxchars){var e=document.getElementById(id);if(!e)return;var n=((e.textContent||'').trim()).length;var s=base;if(n>maxchars){s=base*maxchars/n;if(s<base*0.55)s=base*0.55;}e.setAttribute('font-size',s.toFixed(3));}
 function fitAll(){FITS.forEach(function(f){fitOne(f[0],f[1],f[2]);});}
 function setT(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
-var MAP=[['f_name','t_name'],['f_title','t_title'],['f_phone','t_phone'],['f_email','t_email'],['f_addr1','t_addr1'],['f_addr2','t_addr2']];MAP.forEach(function(p){var f=document.getElementById(p[0]);f.addEventListener('input',function(){setT(p[1],f.value);fitAll();});});function syncAll(){MAP.forEach(function(p){var f=document.getElementById(p[0]);if(f)setT(p[1],f.value);});fitAll();}syncAll();setTimeout(syncAll,250);window.addEventListener('load',syncAll);
+var MAP=[['f_name','t_name'],['f_title','t_title'],['f_phone','t_phone'],['f_email','t_email'],['f_addr1','t_addr1'],['f_addr2','t_addr2']];MAP.forEach(function(p){var f=document.getElementById(p[0]);f.addEventListener('input',function(){setT(p[1],f.value);fitAll();});});function nudge(){['frontsvg','backsvg'].forEach(function(id){var s=document.getElementById(id);if(s){s.style.display='none';void s.offsetHeight;s.style.display='';}});}function syncAll(){MAP.forEach(function(p){var f=document.getElementById(p[0]);if(f)setT(p[1],f.value);});fitAll();nudge();}syncAll();setTimeout(syncAll,250);setTimeout(syncAll,900);window.addEventListener('load',syncAll);if(document.fonts&&document.fonts.ready){document.fonts.ready.then(syncAll);}
 function setView(b){document.querySelector('.preview').classList.toggle('bleedview',b);document.getElementById('bt').classList.toggle('on',!b);document.getElementById('bb').classList.toggle('on',b);}
 function printCard(bleed){
  document.body.classList.toggle('bleed',bleed);
